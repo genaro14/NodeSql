@@ -11,6 +11,8 @@
 + bcryptjs 
 + connect-flash 
 + express-validator
++ jest
++ supertest
 
 ## Developer
 + Nodemon
