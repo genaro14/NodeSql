@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const hbs = require('express-handlebars');
 const path = require('path');
-
+const methodOverride = require('method-override');
 //initializations
-
 const app = express();
 
 // settings
 const REST_PORT = 3000;
+
 app.set('port', process.env.PORT || REST_PORT);
 app.set('views', path.join(__dirname, 'views'))
 app.engine('.hbs', hbs.engine({
@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 
 //Middleware
 app.use(morgan('dev'));
+app.use(methodOverride('_method'));
 
 // Globar Variables
 app.use((req,res,next) => {
@@ -35,7 +36,7 @@ app.use((req,res,next) => {
 
 app.use(require('./routes/index'));
 app.use(require('./routes/authentication'));
- app.use('/links',require('./routes/links'));
+app.use('/links',require('./routes/links'));
 
 // Public
 app.use(express.static(path.join(__dirname, 'public')));
